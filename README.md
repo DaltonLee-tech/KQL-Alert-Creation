@@ -1,0 +1,1 @@
+# KQL-Alert-Creation
