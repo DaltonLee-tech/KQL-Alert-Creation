@@ -44,3 +44,30 @@ The 4th line summarizes the data by counting the number of failed logon attempts
 ![image](https://github.com/user-attachments/assets/6464e190-626e-4c14-aa04-0c4aff18257c)
 
 Finally, the 5th line filters the summarized results to include only those groups where the FailureCount (number of failed logon attempts) is 10 or more.
+
+
+Creating Alerts in Sentinel
+
+To be alerted of a brute force attempt in Sentinel we first need to configure a new rule using the KQL query we just assembled. To start this navigate to the analytics tab under configuration and create a new scheduled query rule.
+
+![image](https://github.com/user-attachments/assets/591b010f-e232-4157-9622-ad47e9597d8b)
+
+![image](https://github.com/user-attachments/assets/c29221c1-f44b-46f6-9174-988c6cf37ed3)
+
+Under the "General" tab is where you can name and write a description of the rule. This is also where you can set the severity, enable/disbale the rule, and map to a specific instance of the MITRE ATT&CK framework.
+
+![image](https://github.com/user-attachments/assets/0bf25b78-99fa-487f-92f3-95c2e14ddeb7)
+
+The "Set Rule Logic" tab is where we will insert our query. There are other options for our rule in this tab such as:
+Entity mapping: This option
+Query scheduling:
+Alert Threshold:
+Event grouping:
+
+![image](https://github.com/user-attachments/assets/7201b436-a539-4811-85a3-570248f67d0c)
+
+The "Incident Settings" tab is where we will have incidents spun up from this rule. We can also group related alerts triggered by this rule into incidents. Grouping alerts into incidents provides the context you need to respond and reduces the noise from single alerts.
+
+![image](https://github.com/user-attachments/assets/64a7c805-beaf-40b8-8e68-aa40435de0d8)
+
+The "Automated Response" tab is where we can have Sentinel automatically perform an action when an incident or alert is created. These include running a preset playbook, changing the incident status or severity, and assigning a new owner to the incident. Now we can finally save our rule.
