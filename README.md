@@ -8,7 +8,7 @@ For this lab we will be focusing on querying Windows event logs, but KQL can be 
 
 ![image](https://github.com/user-attachments/assets/0e9042b4-a38d-40de-b1ad-281042773073)
 
-The first line in the query specifies what table the query pulls logs from. SecurityEvent is a type of log in Windows that pertains to security related events. These include:
+The 1st line in the query specifies what table the query pulls logs from. SecurityEvent is a type of log in Windows that pertains to security related events. These include:
 
 - Successful and failed logon attempts (Event ID 4624 for successful logon, Event ID 4625 for failed logon).
 - Logoff events (Event ID 4634).
@@ -30,11 +30,11 @@ The first line in the query specifies what table the query pulls logs from. Secu
 ![image](https://github.com/user-attachments/assets/75e901de-635b-4463-be09-c8cb63588d42)
 
 
-The second line in the query specifies the event ID of the log. In this case we are looking for failed logins so the corresponding EventID is 4625.
+The 2nd line in the query specifies the event ID of the log. In this case we are looking for failed logins so the corresponding EventID is 4625.
 
 ![image](https://github.com/user-attachments/assets/26f20d2b-ee70-4615-93f8-9435b3616c1f)
 
-The third line restricts our results to only the past hour.
+The 3rd line restricts our results to only the past hour.
 
 ![image](https://github.com/user-attachments/assets/b2b59a1e-5258-4c0c-99d3-154ad91c4860)
 
@@ -101,3 +101,16 @@ SuccessfulLogons
 | project AuthenticationSuccessTime, AttackerIP, DestinationHostName, FailureCount, SuccessfulCount
 
 This query identifies potential Brute force successes by filtering source IP addresses that have failed at least 5 logon attempts, followed by a successful logon. It summarizes the failed and successful logons, joins the results, and projects the relevant information tied to the potential Brute force success.
+
+
+## Viewing Global Administer Assignment in Entra ID
+
+AuditLogs
+
+| where OperationName == "Add member to role" and Result == "success"
+
+| where TargetResources[0].modifiedProperties[1].newValue == '"Global Administrator"' or TargetResources[0].modifiedProperties[1].newValue == '"Company Administrator"' 
+
+| order by TimeGenerated desc
+
+| project TimeGenerated, OperationName, AssignedRole = TargetResources[0].modifiedProperties[1].newValue, Status = Result, TargetResources
