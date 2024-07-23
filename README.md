@@ -2,7 +2,7 @@
 
 In this lab we will explore KQL queries and how they relate to alerts in the SIEM tool Microsoft Sentinel. I will go in depth on how to structure queries to create alerts inside of Sentinel, and how to create incidents using these alerts. We will then trigger a few of the alerts and observe the incidents they create.
 
-KQL queries
+## KQL queries
 
 For this lab we will be focusing on querying Windows event logs, but KQL can be used to query Linux machines, Microsoft Entra ID, Network Security Groups, Azure Key vaults, and many other resources inside of Azure. You can query in many different places in Azure, but for the purposes of this lab we will be querying the Log Analytics Workspace since all of the logs in my environment are routed here. The first query we will dissect is relating to brute force attempts on a Windows Virtual Machine. We can define a brute force login attempt as 10 or more failed logins within 1 hour.
 
@@ -10,22 +10,22 @@ For this lab we will be focusing on querying Windows event logs, but KQL can be 
 
 The first line in the query specifies what table the query pulls logs from. SecurityEvent is a type of log in Windows that pertains to security related events. These include:
 
-Successful and failed logon attempts (Event ID 4624 for successful logon, Event ID 4625 for failed logon).
-Logoff events (Event ID 4634).
+- Successful and failed logon attempts (Event ID 4624 for successful logon, Event ID 4625 for failed logon).
+- Logoff events (Event ID 4634).
 
-User account changes such as creation, deletion, and modification (Event IDs 4720, 4722, 4723, 4724, 4725, 4726).
+- User account changes such as creation, deletion, and modification (Event IDs 4720, 4722, 4723, 4724, 4725, 4726).
 
-Events related to the use of privileges (Event ID 4672).
+- Events related to the use of privileges (Event ID 4672).
 
-Changes to audit policies, such as enabling or disabling auditing (Event ID 4719).
+- Changes to audit policies, such as enabling or disabling auditing (Event ID 4719).
 
-Events that affect the system's integrity, like startup and shutdown of the system (Event IDs 4608, 4609).
+- Events that affect the system's integrity, like startup and shutdown of the system (Event IDs 4608, 4609).
 
-Changes to group membership, including additions and removals of users in groups (Event IDs 4731, 4732, 4733).
+- Changes to group membership, including additions and removals of users in groups (Event IDs 4731, 4732, 4733).
 
-Access to objects like files, folders, and registry keys (Event IDs 4663, 4660).
+- Access to objects like files, folders, and registry keys (Event IDs 4663, 4660).
 
-Events related to clearing of the event logs (Event ID 1102).
+- Events related to clearing of the event logs (Event ID 1102).
 
 ![image](https://github.com/user-attachments/assets/75e901de-635b-4463-be09-c8cb63588d42)
 
@@ -46,11 +46,11 @@ The 4th line summarizes the data by counting the number of failed logon attempts
 Finally, the 5th line filters the summarized results to include only those groups where the FailureCount (number of failed logon attempts) is 10 or more.
 
 
-Creating Alerts in Sentinel
-
-To be alerted of a brute force attempt in Sentinel we first need to configure a new rule using the KQL query we just assembled. To start this navigate to the analytics tab under configuration and create a new scheduled query rule.
+## Creating Alerts in Sentinel
 
 ![image](https://github.com/user-attachments/assets/591b010f-e232-4157-9622-ad47e9597d8b)
+
+To be alerted of a brute force attempt in Sentinel we first need to configure a new rule using the KQL query we just assembled. To start this navigate to the analytics tab under configuration and create a new scheduled query rule.
 
 ![image](https://github.com/user-attachments/assets/c29221c1-f44b-46f6-9174-988c6cf37ed3)
 
@@ -59,10 +59,10 @@ Under the "General" tab is where you can name and write a description of the rul
 ![image](https://github.com/user-attachments/assets/0bf25b78-99fa-487f-92f3-95c2e14ddeb7)
 
 The "Set Rule Logic" tab is where we will insert our query. There are other options for our rule in this tab such as:
-Entity mapping: This option
-Query scheduling:
-Alert Threshold:
-Event grouping:
+- Entity mapping: Helps Sentinel recognize and classify different events triggered by the same entity for investigation purposes
+- Query scheduling: Determines how often you want the query to run, and how far back the data should be queried
+- Alert Threshold: Determines how many results the query takes to generate and alert
+- Event grouping: Choose if you want to trigger an alert for every event or group all events into a single alert
 
 ![image](https://github.com/user-attachments/assets/7201b436-a539-4811-85a3-570248f67d0c)
 
