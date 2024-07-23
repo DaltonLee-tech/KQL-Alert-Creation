@@ -115,7 +115,7 @@ AuditLogs
 
 | project TimeGenerated, OperationName, AssignedRole = TargetResources[0].modifiedProperties[1].newValue, Status = Result, TargetResources
 
-## Queries for any users given sudo privileges
+## Queries for any users given sudo privileges in Linux
 
 Syslog
 
