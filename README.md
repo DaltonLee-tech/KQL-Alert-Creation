@@ -114,3 +114,13 @@ AuditLogs
 | order by TimeGenerated desc
 
 | project TimeGenerated, OperationName, AssignedRole = TargetResources[0].modifiedProperties[1].newValue, Status = Result, TargetResources
+
+## Queries for any users given sudo privileges
+
+Syslog
+
+| where Facility == "authpriv" and SeverityLevel == "info"
+
+| where SyslogMessage contains "to group 'sudo'"
+
+| project TimeGenerated, HostIP, Computer, ProcessID, SyslogMessage
