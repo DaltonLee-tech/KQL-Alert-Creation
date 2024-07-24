@@ -1,10 +1,10 @@
 # Sentinel Alert Creation
 
-In this lab we will explore KQL queries and how they relate to alerts in the SIEM tool Microsoft Sentinel. I will go in depth on how to structure queries to create alerts inside of Sentinel, and how to create incidents using these alerts.
+In this lab, we will explore KQL queries and how they relate to alerts in the SIEM tool Microsoft Sentinel. I will go in-depth on how to structure queries to create alerts inside of Sentinel, and how to create incidents using these alerts.
 
 ## KQL queries
 
-For this lab we will be focusing on querying Windows event logs, but KQL can be used to query Linux machines, Microsoft Entra ID, Network Security Groups, Azure Key vaults, and many other resources inside of Azure. You can query in many different places in Azure, but for the purposes of this lab we will be querying the Log Analytics Workspace since all of the logs in my environment are routed here. The first query we will dissect is relating to brute force attempts on a Windows Virtual Machine. We can define a brute force login attempt as 10 or more failed logins within 1 hour.
+For this lab, we will be focusing on querying Windows event logs, but KQL can be used to query Linux machines, Microsoft Entra ID, Network Security Groups, Azure Key vaults, and many other resources inside of Azure. You can query in many different places in Azure, but for the purposes of this lab we will be querying the Log Analytics Workspace since all of the logs in my environment are routed here. The first query we will dissect is relating to brute force attempts on a Windows Virtual Machine. We can define a brute force login attempt as 10 or more failed logins within 1 hour.
 
 ![image](https://github.com/user-attachments/assets/0e9042b4-a38d-40de-b1ad-281042773073)
 
@@ -50,7 +50,7 @@ Finally, the 5th line filters the summarized results to include only those group
 
 ![image](https://github.com/user-attachments/assets/591b010f-e232-4157-9622-ad47e9597d8b)
 
-To be alerted of a brute force attempt in Sentinel we first need to configure a new rule using the KQL query we just assembled. To start this navigate to the analytics tab under configuration and create a new scheduled query rule.
+To be alerted of a brute force attempt in Sentinel, we first need to configure a new rule using the KQL query we just assembled. To start this, navigate to the analytics tab under configuration and create a new scheduled query rule.
 
 ![image](https://github.com/user-attachments/assets/c29221c1-f44b-46f6-9174-988c6cf37ed3)
 
@@ -70,7 +70,7 @@ The "Incident Settings" tab is where we will have incidents spun up from this ru
 
 ![image](https://github.com/user-attachments/assets/64a7c805-beaf-40b8-8e68-aa40435de0d8)
 
-The "Automated Response" tab is where we can have Sentinel automatically perform an action when an incident or alert is created. These include running a preset playbook, changing the incident status or severity, and assigning a new owner to the incident. Now we can finally save our rule.
+The "Automated Response" tab is where we can have Sentinel automatically perform an action when an incident or alert is created. These include running a pre-set playbook, changing the incident status or severity, and assigning a new owner to the incident. Now we can finally save our rule.
 
 # More KQL queries
 
