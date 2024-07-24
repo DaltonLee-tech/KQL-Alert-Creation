@@ -100,6 +100,7 @@ SuccessfulLogons
 
 | project AuthenticationSuccessTime, AttackerIP, DestinationHostName, FailureCount, SuccessfulCount
 
+
 This query identifies potential Brute force successes by filtering source IP addresses that have failed at least 5 logon attempts, followed by a successful logon. It summarizes the failed and successful logons, joins the results, and projects the relevant information tied to the potential Brute force success.
 
 
@@ -115,6 +116,9 @@ AuditLogs
 
 | project TimeGenerated, OperationName, AssignedRole = TargetResources[0].modifiedProperties[1].newValue, Status = Result, TargetResources
 
+
+This query filters audit logs to identify when a user is added to the "Global Administrator" or "Company Administrator" role, ordering the results by time and projecting relevant details. It is important for monitoring and promptly detecting changes to high-privilege roles, ensuring the security and proper governance of administrative access.
+
 ## Queries for any users given sudo privileges in Linux
 
 Syslog
@@ -124,3 +128,7 @@ Syslog
 | where SyslogMessage contains "to group 'sudo'"
 
 | project TimeGenerated, HostIP, Computer, ProcessID, SyslogMessage
+
+
+This query filters syslog data to identify informational messages where a user is added to the sudo group, projecting the timestamp, host IP, computer name, process ID, and log message. This data is crucial for 
+monitoring and detecting unauthorized privilege escalations, ensuring security and compliance.
