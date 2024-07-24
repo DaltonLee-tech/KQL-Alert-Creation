@@ -1,6 +1,6 @@
-# KQL-Alert-Creation
+# Sentinel Alert Creation
 
-In this lab we will explore KQL queries and how they relate to alerts in the SIEM tool Microsoft Sentinel. I will go in depth on how to structure queries to create alerts inside of Sentinel, and how to create incidents using these alerts. We will then trigger a few of the alerts and observe the incidents they create.
+In this lab we will explore KQL queries and how they relate to alerts in the SIEM tool Microsoft Sentinel. I will go in depth on how to structure queries to create alerts inside of Sentinel, and how to create incidents using these alerts.
 
 ## KQL queries
 
